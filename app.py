@@ -1,5 +1,6 @@
 import sys
 import time
+from model_loader import load_model
 
 from PyQt6.QtWidgets import (
     QApplication,
@@ -25,6 +26,13 @@ class NeuroFenceGUI(QWidget):
         self.resize(1100, 700)
 
         self.setup_ui()
+
+        self.status_label.setText("Status : Loading AI Model...")
+        QApplication.processEvents()
+
+        load_model()
+
+        self.status_label.setText("Status : Ready")
 
     def setup_ui(self):
 

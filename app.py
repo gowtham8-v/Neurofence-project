@@ -1,4 +1,5 @@
 import sys
+from scanner import scan
 import time
 from model_loader import load_model
 
@@ -120,16 +121,25 @@ class NeuroFenceGUI(QWidget):
 
     def fake_scan(self):
 
-        self.status_label.setText("Status : Scanning...")
+        prompt = self.prompt_box.toPlainText().strip()
+
+        if not prompt:
+            self.status_label.setText("Status : Please enter a prompt.")
+            return
+
+        self.status_label.setText("Status : Generating response...")
         QApplication.processEvents()
 
-        time.sleep(1)
+        try:
+            response = scan(prompt)
 
-        self.response_box.setPlainText(
-            "Scanner module will be implemented in the next commit."
-        )
+            self.response_box.setPlainText(response)
 
-        self.status_label.setText("Status : Ready")
+            self.status_label.setText("Status : Completed")
+
+        except Exception as e:
+            self.response_box.setPlainText(str(e))
+            self.status_label.setText("Status : Error")
 
 
 if __name__ == "__main__":

@@ -1,9 +1,13 @@
 from model_loader import load_model
-
+from hooks import activations
+from hook_manager import attach_hooks, remove_hooks
 
 def scan(prompt):
 
     tokenizer, model = load_model()
+    activations.clear()
+
+    handles = attach_hooks(model)
 
     inputs = tokenizer(prompt, return_tensors="pt")
 
@@ -18,5 +22,5 @@ def scan(prompt):
         outputs[0],
         skip_special_tokens=True
     )
-
+    remove_hooks(handles)
     return response

@@ -127,50 +127,37 @@ class NeuroFenceGUI(QWidget):
             self.status_label.setText("Status : Please enter a prompt.")
             return
 
-        self.status_label.setText("Status : Generating response...")
+        self.status_label.setText("Status : Analyzing prompt...")
         QApplication.processEvents()
 
         try:
-<<<<<<< HEAD
 
             result = scan(prompt)
 
             response = result["response"]
-
             analysis = result["analysis"]
-
             risk = result["risk"]
 
             risk_level = risk["risk_level"]
             recommendation = risk["recommendation"]
 
             score = analysis["overall_score"]
-=======
-            result = scan(prompt)
-
-            response = result["response"]
-            risk = result["risk_level"]
-            score = result["analysis"]["overall_score"]
->>>>>>> main
 
             output = (
-                f"{response}\n\n"
-                f"=================================\n"
-                f" NeuroFence Analysis\n"
-                f"=================================\n\n"
-<<<<<<< HEAD
-                f"Risk Level : {risk_level}\n"
-                f"Recommendation : {recommendation}\n"
-                f"Anomaly Score : {score:.4f}"
-=======
-                f"Risk Level : {risk}\n"
-                f"Anomaly Score : {score:.3f}"
->>>>>>> main
+                "==============================\n"
+                "🛡 NeuroFence Security Report\n"
+                "==============================\n\n"
+                f"Risk Level      : {risk_level}\n"
+                f"Anomaly Score   : {score:.4f}\n"
+                f"Recommendation  : {recommendation}\n\n"
+                "----------------------------------------\n"
+                "AI Generated Response\n"
+                "----------------------------------------\n\n"
+                f"{response}"
             )
-
             self.response_box.setPlainText(output)
 
-            self.status_label.setText("Status : Completed")
+            self.status_label.setText("Status : Analysis Completed")
 
         except Exception as e:
 

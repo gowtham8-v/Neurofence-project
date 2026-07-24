@@ -2,7 +2,7 @@ from model_loader import load_model
 from hooks import activations
 from hook_manager import attach_hooks, remove_hooks
 from history import save_scan
-
+from report_export import export_report
 from anomaly_detector import analyze_activations
 from risk_engine import evaluate_risk
 
@@ -48,6 +48,12 @@ def scan(prompt):
     prompt,
     risk["risk_level"],
     overall_score
+)
+    export_report(
+    prompt,
+    response,
+    analysis,
+    risk
 )
 
     # Return everything

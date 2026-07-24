@@ -2,7 +2,7 @@ import sys
 from scanner import scan
 import time
 from model_loader import load_model
-
+from statistics import get_statistics
 from PyQt6.QtWidgets import (
     QApplication,
     QWidget,
@@ -142,17 +142,30 @@ class NeuroFenceGUI(QWidget):
             recommendation = risk["recommendation"]
 
             score = analysis["overall_score"]
+            stats = get_statistics()
 
             output = (
                 "==============================\n"
                 "🛡 NeuroFence Security Report\n"
                 "==============================\n\n"
+
                 f"Risk Level      : {risk_level}\n"
                 f"Anomaly Score   : {score:.4f}\n"
                 f"Recommendation  : {recommendation}\n\n"
-                "----------------------------------------\n"
+
+                "------------------------------\n"
+                "Scan Statistics\n"
+                "------------------------------\n"
+
+                f"Total Scans : {stats['total']}\n"
+                f"LOW Risk    : {stats['LOW']}\n"
+                f"MEDIUM Risk : {stats['MEDIUM']}\n"
+                f"HIGH Risk   : {stats['HIGH']}\n\n"
+
+                "------------------------------\n"
                 "AI Generated Response\n"
-                "----------------------------------------\n\n"
+                "------------------------------\n\n"
+
                 f"{response}"
             )
             self.response_box.setPlainText(output)

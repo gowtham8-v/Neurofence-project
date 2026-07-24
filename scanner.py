@@ -1,6 +1,7 @@
 from model_loader import load_model
 from hooks import activations
 from hook_manager import attach_hooks, remove_hooks
+from history import save_scan
 
 from anomaly_detector import analyze_activations
 from risk_engine import evaluate_risk
@@ -43,6 +44,11 @@ def scan(prompt):
     # Calculate risk
     overall_score = analysis["overall_score"]
     risk = evaluate_risk(overall_score)
+    save_scan(
+    prompt,
+    risk["risk_level"],
+    overall_score
+)
 
     # Return everything
     return {

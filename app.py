@@ -131,9 +131,22 @@ class NeuroFenceGUI(QWidget):
         QApplication.processEvents()
 
         try:
-            response = scan(prompt)
+            result = scan(prompt)
 
-            self.response_box.setPlainText(response)
+            response = result["response"]
+            risk = result["risk_level"]
+            score = result["analysis"]["overall_score"]
+
+            output = (
+                f"{response}\n\n"
+                f"=================================\n"
+                f" NeuroFence Analysis\n"
+                f"=================================\n\n"
+                f"Risk Level : {risk}\n"
+                f"Anomaly Score : {score:.3f}"
+            )
+
+            self.response_box.setPlainText(output)
 
             self.status_label.setText("Status : Completed")
 

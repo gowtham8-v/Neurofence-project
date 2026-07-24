@@ -5,12 +5,14 @@ from history import save_scan
 from report_export import export_report
 from anomaly_detector import analyze_activations
 from risk_engine import evaluate_risk
+from prompt_detector import detect_prompt_injection
 
 
 def scan(prompt):
 
     # Load tokenizer and model
     tokenizer, model = load_model()
+    prompt_scan = detect_prompt_injection(prompt)
 
     # Clear previous activations
     activations.clear()
@@ -60,5 +62,6 @@ def scan(prompt):
     return {
         "response": response,
         "analysis": analysis,
-        "risk": risk
+        "risk": risk,
+        "prompt_scan": prompt_scan
     }

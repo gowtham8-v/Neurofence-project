@@ -137,6 +137,11 @@ class NeuroFenceGUI(QWidget):
             response = result["response"]
             analysis = result["analysis"]
             risk = result["risk"]
+            prompt_scan = result["prompt_scan"]
+            prompt_status = "Not Detected"
+
+            if prompt_scan["detected"]:
+                prompt_status = "Detected"
 
             risk_level = risk["risk_level"]
             recommendation = risk["recommendation"]
@@ -151,7 +156,8 @@ class NeuroFenceGUI(QWidget):
 
                 f"Risk Level      : {risk_level}\n"
                 f"Anomaly Score   : {score:.4f}\n"
-                f"Recommendation  : {recommendation}\n\n"
+                f"Recommendation  : {recommendation}\n"
+                f"Prompt Injection  : {prompt_status}\n\n"
 
                 "------------------------------\n"
                 "Scan Statistics\n"

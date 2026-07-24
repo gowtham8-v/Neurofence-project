@@ -1,7 +1,6 @@
 from model_loader import load_model
 from hooks import activations
 from hook_manager import attach_hooks, remove_hooks
-from anomaly_detector import analyze_activations, classify_anomaly
 
 from anomaly_detector import analyze_activations
 from risk_engine import evaluate_risk
@@ -37,7 +36,6 @@ def scan(prompt):
 
     # Remove hooks
     remove_hooks(handles)
-<<<<<<< HEAD
 
     # Analyze activations
     analysis = analyze_activations()
@@ -51,24 +49,4 @@ def scan(prompt):
         "response": response,
         "analysis": analysis,
         "risk": risk
-=======
-        # -------------------------------
-    # Analyze activations
-    # -------------------------------
-    analysis = analyze_activations()
-
-    # -------------------------------
-    # Calculate overall risk
-    # -------------------------------
-    overall_score = analysis["overall_score"]
-    risk_level = classify_anomaly(overall_score)
-
-    # -------------------------------
-    # Return everything
-    # -------------------------------
-    return {
-        "response": response,
-        "analysis": analysis,
-        "risk_level": risk_level
->>>>>>> main
     }

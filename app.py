@@ -131,6 +131,7 @@ class NeuroFenceGUI(QWidget):
         QApplication.processEvents()
 
         try:
+<<<<<<< HEAD
 
             result = scan(prompt)
 
@@ -144,15 +145,27 @@ class NeuroFenceGUI(QWidget):
             recommendation = risk["recommendation"]
 
             score = analysis["overall_score"]
+=======
+            result = scan(prompt)
+
+            response = result["response"]
+            risk = result["risk_level"]
+            score = result["analysis"]["overall_score"]
+>>>>>>> main
 
             output = (
                 f"{response}\n\n"
                 f"=================================\n"
                 f" NeuroFence Analysis\n"
                 f"=================================\n\n"
+<<<<<<< HEAD
                 f"Risk Level : {risk_level}\n"
                 f"Recommendation : {recommendation}\n"
                 f"Anomaly Score : {score:.4f}"
+=======
+                f"Risk Level : {risk}\n"
+                f"Anomaly Score : {score:.3f}"
+>>>>>>> main
             )
 
             self.response_box.setPlainText(output)

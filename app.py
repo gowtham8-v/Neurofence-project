@@ -16,6 +16,7 @@ from PyQt6.QtWidgets import (
 
 from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt
+from activity_log import get_recent_scans
 
 
 class NeuroFenceGUI(QWidget):
@@ -116,6 +117,18 @@ class NeuroFenceGUI(QWidget):
         self.status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         main_layout.addWidget(self.status_label)
+                #-----------------------------
+        # Activity Log
+        # -----------------------------
+
+        activity_title = QLabel("Recent Activity")
+
+        self.activity_box = QTextEdit()
+        self.activity_box.setReadOnly(True)
+        self.activity_box.setMaximumHeight(180)
+
+        main_layout.addWidget(activity_title)
+        main_layout.addWidget(self.activity_box)
 
         self.setLayout(main_layout)
 
@@ -175,6 +188,20 @@ class NeuroFenceGUI(QWidget):
                 f"{response}"
             )
             self.response_box.setPlainText(output)
+            recent = get_recent_scans()
+
+            activity_text = ""
+
+            for item in recent:
+
+                activity_text += (
+                    f"{item['timestamp']}\n"
+                    f"Risk : {item['risk_level']}\n"
+                    f"Prompt : {item['prompt'][:40]}\n"
+                    "--------------------------\n"
+                )
+
+            self.activity_box.setPlainText(activity_text)
 
             self.status_label.setText("Status : Analysis Completed")
 
